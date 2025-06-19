@@ -9,18 +9,21 @@ This project uses **traditional environment-based API keys** for secure server-t
 ### Generated API Keys
 
 **Production Environment:**
+
 ```
-PAYMENT_FLOW_API_KEY_PROD=ak_41698f279475d15be37fe5f82ce905aee6cfc30a4c406a5c924372109ca7b4fc
+PAYMENT_FLOW_API_KEY_PROD=
 ```
 
 **Development Environment:**
+
 ```
-PAYMENT_FLOW_API_KEY_DEV=ak_0339e2816eb6209b4fb0510f30f4fd14da75d65169b82bc7eb755532969a8ead
+PAYMENT_FLOW_API_KEY_DEV=
 ```
 
 ### Environment Setup
 
 1. **Create `.env.local` file:**
+
 ```env
 # Database
 MONGODB_URI=mongodb://localhost:27017/reebews-admin
@@ -30,59 +33,65 @@ NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
 CLERK_SECRET_KEY=your_clerk_secret_key
 
 # API Keys for Payment Flow
-PAYMENT_FLOW_API_KEY_PROD=ak_41698f279475d15be37fe5f82ce905aee6cfc30a4c406a5c924372109ca7b4fc
-PAYMENT_FLOW_API_KEY_DEV=ak_0339e2816eb6209b4fb0510f30f4fd14da75d65169b82bc7eb755532969a8ead
+PAYMENT_FLOW_API_KEY_PROD=
+PAYMENT_FLOW_API_KEY_DEV=
 NODE_ENV=development
 ```
 
 2. **Client-side configuration (Landing Page):**
+
 ```env
 # For calling the Reebews Admin API
-REEBEWS_API_KEY=ak_0339e2816eb6209b4fb0510f30f4fd14da75d65169b82bc7eb755532969a8ead
+REEBEWS_API_KEY=
 ```
 
 ### API Usage
 
 ```javascript
-const response = await fetch('/api/v1/payment/create-pending-user', {
-  method: 'POST',
+const response = await fetch("/api/v1/payment/create-pending-user", {
+  method: "POST",
   headers: {
-    'Authorization': `Bearer ${process.env.REEBEWS_API_KEY}`,
-    'Content-Type': 'application/json'
+    Authorization: `Bearer ${process.env.REEBEWS_API_KEY}`,
+    "Content-Type": "application/json",
   },
   body: JSON.stringify({
-    email: 'user@example.com',
-    name: 'John Doe',
-    planType: 'premium'
-  })
+    email: "user@example.com",
+    name: "John Doe",
+    planType: "premium",
+  }),
 });
 ```
 
 ## 🚀 Quick Start
 
 1. **Clone the repository:**
+
 ```bash
 git clone <your-repo-url>
 cd project-amzn-reebews-admin
 ```
 
 2. **Install dependencies:**
+
 ```bash
 npm install
 ```
 
 3. **Set up environment variables:**
+
 ```bash
 cp .env.local.example .env.local
 # Edit .env.local with your actual values
 ```
 
 4. **Run the development server:**
+
 ```bash
 npm run dev
 ```
 
 5. **Test API authentication:**
+
 ```bash
 node test-api-key.js
 ```
@@ -90,11 +99,13 @@ node test-api-key.js
 ## 🔧 API Endpoints
 
 ### Payment API
+
 - `POST /api/v1/payment/create-pending-user` - Create a pending user for payment processing
 
 **Authentication:** Bearer token with API key
 
 **Request:**
+
 ```json
 {
   "email": "user@example.com",
@@ -104,6 +115,7 @@ node test-api-key.js
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
