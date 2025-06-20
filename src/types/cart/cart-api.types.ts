@@ -26,6 +26,7 @@ export interface CartDetails {
   expiryDate: string;
   status: string;
   signupToken: string;
+  isSignupCompleted: boolean;
   createdAt: string;
   updatedAt: string;
 }

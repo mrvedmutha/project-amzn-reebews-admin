@@ -12,6 +12,14 @@ export class CartService {
     }
     return cart;
   }
+
+  async markSignupAsCompleted(signupToken: string): Promise<void> {
+    await dbConnect();
+    await Cart.updateOne(
+      { signupToken },
+      { $set: { isSignupCompleted: true } }
+    ).exec();
+  }
 }
 
 export const cartService = new CartService();

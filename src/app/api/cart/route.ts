@@ -25,6 +25,15 @@ export async function GET(req: NextRequest) {
       return NextResponse.json(response, { status: 404 });
     }
 
+    // Check if the signup link has already been used
+    if (cart.isSignupCompleted) {
+      const response: CartApiResponse = {
+        success: false,
+        message: "This signup link has already been used.",
+      };
+      return NextResponse.json(response, { status: 409 });
+    }
+
     const response: CartApiResponse = {
       success: true,
       message: "Cart details fetched successfully",

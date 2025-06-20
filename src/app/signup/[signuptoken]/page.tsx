@@ -35,6 +35,12 @@ export default async function SignUpPage({ params }: SignUpPageProps) {
     );
   } catch (error) {
     console.error("Error in signup page:", error);
+
+    // Handle the case where the signup link has already been used
+    if (error instanceof Error && error.message.includes("already been used")) {
+      redirect(`/login?error=already_registered`);
+    }
+
     // The service throws an error for 404s, so we can catch it here.
     if (
       error instanceof Error &&

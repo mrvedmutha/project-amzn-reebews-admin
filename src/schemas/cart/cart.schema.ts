@@ -28,6 +28,7 @@ export const cartSchema = new Schema(
     expiryDate: { type: Date, required: true },
     status: { type: String, required: true },
     signupToken: { type: String, required: true, unique: true, index: true },
+    isSignupCompleted: { type: Boolean, default: false },
   },
   { timestamps: true }
 );

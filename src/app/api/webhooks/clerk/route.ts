@@ -95,6 +95,9 @@ export async function POST(req: NextRequest) {
         address: cart.userDetails.address,
       });
 
+      // Mark the cart as completed to prevent reuse of the signup link
+      await cartService.markSignupAsCompleted(signupToken);
+
       return NextResponse.json({
         success: true,
         message: "User created",
