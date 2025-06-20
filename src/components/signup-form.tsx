@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
-import { userService } from "@/services/users/user.service";
 
 interface SignupFormProps extends React.ComponentProps<"form"> {
   defaultEmail?: string;
@@ -56,16 +55,6 @@ export function SignupForm({
       });
 
       if (result.status === "complete") {
-        // Create user in our database
-        await userService.createUser({
-          email,
-          password, // Will be hashed in the service
-          authProvider: "email",
-          planName: planDetails.name,
-          planAmount: planDetails.amount,
-          planExpiryDate: planDetails.expiryDate,
-        });
-
         await setActive({ session: result.createdSessionId });
         toast.success("Account created successfully!");
       } else {
