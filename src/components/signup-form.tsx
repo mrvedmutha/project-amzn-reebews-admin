@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
+import { usePathname, useSearchParams } from "next/navigation";
 
 interface SignupFormProps extends React.ComponentProps<"form"> {
   defaultEmail?: string;
@@ -33,6 +34,7 @@ export function SignupForm({
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const pathname = usePathname();
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -48,10 +50,14 @@ export function SignupForm({
     }
 
     try {
+      const signupToken = pathname.split("/").pop();
+
       // Create user in Clerk
       const result = await signUp.create({
         emailAddress: email,
         password,
+        // Pass the signupToken to the unsafe metadata
+        unsafeMetadata: signupToken ? { signupToken } : undefined,
       });
 
       if (result.status === "complete") {
@@ -141,6 +147,7 @@ export function SignupForm({
             disabled={isLoading}
           />
         </div>
+        <div id="clerk-captcha"></div>
         <Button type="submit" className="w-full" disabled={isLoading}>
           {isLoading ? "Creating account..." : "Create Account"}
         </Button>
