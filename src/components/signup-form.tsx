@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 interface SignupFormProps extends React.ComponentProps<"form"> {
   defaultEmail?: string;
@@ -35,6 +35,7 @@ export function SignupForm({
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -63,6 +64,7 @@ export function SignupForm({
       if (result.status === "complete") {
         await setActive({ session: result.createdSessionId });
         toast.success("Account created successfully!");
+        router.push("/dashboard");
       } else {
         setError("Something went wrong. Please try again.");
       }
