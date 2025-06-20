@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
-import { CartSchema } from "@/schemas/cart/cart.schema";
-import type { Cart } from "@/types/cart/cart.types";
+import { cartSchema } from "@/schemas/cart/cart.schema";
+import { CartDetails } from "@/types/cart/cart-api.types";
 
-export const CartModel =
-  mongoose.models.Cart || mongoose.model<Cart>("Cart", CartSchema);
+// Check if the model is already defined before defining it
+export const Cart =
+  mongoose.models.Cart || mongoose.model<CartDetails>("Cart", cartSchema);
